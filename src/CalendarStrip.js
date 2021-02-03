@@ -80,7 +80,6 @@ class CalendarStrip extends Component {
     weekendDateNumberStyle: PropTypes.any,
     highlightDateNameStyle: PropTypes.any,
     highlightDateNumberStyle: PropTypes.any,
-    highlightDateContainerStyle: PropTypes.any,
     disabledDateNameStyle: PropTypes.any,
     disabledDateNumberStyle: PropTypes.any,
     markedDatesStyle: PropTypes.object,
@@ -157,17 +156,12 @@ class CalendarStrip extends Component {
     if (!this.compareDates(prevProps.startingDate, this.props.startingDate) ||
         !this.compareDates(prevProps.selectedDate, this.props.selectedDate) ||
         prevProps.datesBlacklist !== this.props.datesBlacklist ||
-        prevProps.datesWhitelist !== this.props.datesWhitelist ||
-        prevProps.markedDates  !== this.props.markedDates  ||
-        prevProps.customDatesStyles !== this.props.customDatesStyles )
+        prevProps.datesWhitelist !== this.props.datesWhitelist)
     {
-      // Protect against undefined startingDate prop
-      let _startingDate = this.props.startingDate || this.state.startingDate;
-      
-      startingDate = { startingDate: this.setLocale(_startingDate)};
+      updateState = true;
+      startingDate = { startingDate: this.setLocale(this.props.startingDate)};
       selectedDate = { selectedDate: this.setLocale(this.props.selectedDate)};
       days = this.createDays(startingDate.startingDate, selectedDate.selectedDate);
-      updateState = true;
     }
 
     if (updateState) {
@@ -424,7 +418,6 @@ class CalendarStrip extends Component {
       weekendDateNumberStyle: this.props.weekendDateNumberStyle,
       highlightDateNameStyle: this.props.highlightDateNameStyle,
       highlightDateNumberStyle: this.props.highlightDateNumberStyle,
-      highlightDateContainerStyle: this.props.highlightDateContainerStyle,
       disabledDateNameStyle: this.props.disabledDateNameStyle,
       disabledDateNumberStyle: this.props.disabledDateNumberStyle,
       markedDatesStyle: this.props.markedDatesStyle,
@@ -501,7 +494,8 @@ class CalendarStrip extends Component {
 
     if (!scrollable) {
       const weekStartDate = datesList[0].date;
-      const weekEndDate = datesList[this.state.numVisibleDays - 1].date;
+      const numVisible = this.state.numVisibleDays !== undefined ? this.state.numVisibleDays : numDays;
+      const weekEndDate = datesList[numVisible - 1].date;
       newState.weekStartDate = weekStartDate;
       newState.weekEndDate = weekEndDate;
 
