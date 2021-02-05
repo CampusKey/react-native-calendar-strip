@@ -4,9 +4,9 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
-  GestureResponderEvent
+  GestureResponderEvent,
 } from "react-native";
-import { RecyclerListView } from 'recyclerlistview';
+import { RecyclerListView } from "recyclerlistview";
 
 interface IDaySelectionAnimationBorder {
   type: "border";
@@ -74,18 +74,23 @@ interface CalendarStripProps {
   numDaysInWeek?: number;
   scrollable?: boolean;
   scrollerPaging?: boolean;
-  externalScrollView?: ComponentProps<typeof RecyclerListView>['externalScrollView'];
+  externalScrollView?: ComponentProps<
+    typeof RecyclerListView
+  >["externalScrollView"];
   startingDate?: Moment;
   selectedDate?: Moment;
-  onDateSelected?: ((date: Moment) => void);
-  onWeekChanged?: ((start: Moment, end: Moment) => void);
-  onHeaderSelected?: ((dates: {weekStartDate: Moment, weekEndDate: Moment}) => void);
+  onDateSelected?: (date: Moment) => void;
+  onWeekChanged?: (start: Moment, end: Moment) => void;
+  onHeaderSelected?: (dates: {
+    weekStartDate: Moment;
+    weekEndDate: Moment;
+  }) => void;
   updateWeek?: boolean;
   useIsoWeekday?: boolean;
   minDate?: Moment;
   maxDate?: Moment;
-  datesWhitelist?: TDateRange[] | ((date: Moment) => void);
-  datesBlacklist?: TDateRange[] | ((date: Moment) => void);
+  datesWhitelist?: Moment[] | TDateRange[] | ((date: Moment) => void);
+  datesBlacklist?: Moment[] | TDateRange[] | ((date: Moment) => void);
   markedDates?: any[] | ((date: Moment) => void);
   scrollToOnSetSelectedDate?: boolean;
 
